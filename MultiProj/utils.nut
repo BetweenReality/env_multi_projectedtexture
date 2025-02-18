@@ -1,3 +1,8 @@
+/*
+ * Author: BetweenReality
+ * Purpose: Utility functions and tables for the script
+ */
+
 // WORKAROUND: When including files in main, constants don't get transferred, so all constants are specified as regular entries instead
 // They do work when including in other files, but not the main script
 // TODO: Figure out why, and how to fix it if possible
@@ -31,7 +36,7 @@ ptexOutputKV <- {
 // The value determines what they should be changed to in the off state
 hijackedKV <- {
     lightfov      = 0.0, // Negative numbers are equivalent to their positive counterparts
-    farz          = 0, // FarZ flickers at 0, negative numbers don't seem to do anything
+    farz          = -1, // FarZ flickers at 0, negative numbers don't seem to do anything
     enableshadows = 0
     // TODO: Set AlwaysUpdateOff when the ptex is off, to prevent unnecessary potential calculations
 }
@@ -67,8 +72,9 @@ defaultKV <- {
     spawnflags = 0, // "Start Actve" and "Always Update" false
 };
 
-function round(value, decimals) {
-    local factor = pow(10, decimals);
+// Rounds a value to the specified precision, in decimal places. Squirrel doesn't seem to have a function for this
+function round(value, precision) {
+    local factor = pow(10, precision);
     return floor(value * factor + 0.5) / factor;
 }
 

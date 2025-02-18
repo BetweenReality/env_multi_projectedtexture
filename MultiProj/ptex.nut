@@ -39,14 +39,19 @@ function init(ptexOriginal) {
 function getUserKV(ptexOriginal) {
     logPrint("Running getUserKV() for " + self.GetName(), LogLevels.debug);
     
-    // Method 1: Reads the model keyvalue. Expects this format: key1=value1,key2=value with spaces
-    // TODO: Is there a keyvalue character limit? If so, this will fail if too many keyvalues are set or they are too long
     local modelNameKV = ptexOriginal.GetModelName();
     
+    // Skip keyvalue init if the user doesn't want it for whatever reason
+    if (modelNameKV == "!!!") {
+        logPrint("Found \"!!!\" in \"model\" keyvalue in projtex " + self.GetName() + " . Skipping keyvalue initialization", LogLevels.debug);
+    }
     // WORKAROUND: modelNameKV isn't reading as null for some reason, so use the length
     // I think this might be because all entities have a model kv inherited from CBaseEntity, even if they don't use it
     // Though it also fails if checking for an empty string so ???
-    if (modelNameKV.len() != 0) {
+    else if (modelNameKV.len() != 0) {
+        // Method 1: Reads the model keyvalue. Expects this format: key1=value1,key2=value with spaces
+        // TODO: Is there a keyvalue character limit? If so, this will fail if too many keyvalues are set or they are too long
+        
         logPrint("Found \"model\" keyvalue in projtex: " + self.GetName(), LogLevels.debug);
         local keyvalues = {};
         local keyvaluesPre = split(modelNameKV, ",");
@@ -81,7 +86,7 @@ function getUserKV(ptexOriginal) {
 
 /*
  * Sets an array of keyvalues
- * Meant to be used through the OnUser1 output of your env_projectedtexture to initialize keyvalues
+ * Hammer Usage: Call this via OnUser1 on your env_projectedtexture
  * 
  * Parameters:
  *  keyvalues: An array of keyvalues to update. Strings can be passed in as arrays or sequences of chars

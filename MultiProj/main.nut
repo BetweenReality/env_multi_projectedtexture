@@ -21,6 +21,7 @@
 
 IncludeScript("MultiProj/utils.nut");
 
+::_MULTIPROJ__VERSION <- "1.0.0";
 ::_multiproj__isInitialized <- false;
 ::_multiproj__loggingEnabled <- true;
 
@@ -29,7 +30,7 @@ projectedTextures <- [];
 projectedTexturesOrg <- [];
 
 function init() {
-    logPrint("Initializing Multi-Projtex Script", LogLevels.always);
+    logPrint("Initializing Multi-Projtex Script, version " + _MULTIPROJ__VERSION, LogLevels.always);
     
     // Get all projected textures. This is separate from the next loop since otherwise it would find our newly created ones
     // NOTE: This does not account for any additional env_projectedtextures created at runtime not by us (like from point_template or otherwise)
