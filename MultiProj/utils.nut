@@ -49,6 +49,7 @@ hijackedKV <- {
  * - Do NOT change anything above the "Hijacked" section
  * - Do NOT remove anything above the "Optional" section (they are expected to always exist)
  */
+// TODO: The readme states all keyvalues reflect engine defaults, but some of these do not (like lightfov and possibly enableshadows)
 defaultKV <- {
     // These four are grabbed directly from the original ptex through vscript
     // TODO: Maybe let these be changeable from here
@@ -64,9 +65,9 @@ defaultKV <- {
     // Hijacked
     colortransitiontime = 0.5, // Needs to be reset later since we change it on startup
     // Keys used to simulate TurnOff
-    lightfov            = 90.0,
+    lightfov            = 90.0, 
     farz                = 750.0,
-    enableshadows       = 1, // Most likely you want this on if you're even using this script
+    enableshadows       = 1, // This gets hijacked to prevent using unnecessary depth texture shadows. Most likely you want this on by default if you're even using this script.
     
     // Optional defaults
     spawnflags = 0, // "Start Actve" and "Always Update" false

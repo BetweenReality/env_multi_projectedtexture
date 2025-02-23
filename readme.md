@@ -80,7 +80,7 @@ With the way this works, certain keyvalues are reserved by the script to be able
 - `enableshadows`
 - `colortransitiontime` (briefly reserved on script initialization, but is free afterwards)
 
-This shouldn't affect you in most cases, but there is one scenario that it will: If you change one of these keyvalues at runtime, turn off the projected texture, then turn it back on again, it will not be saved. To ensure they get saved, you must call the `notifyKVUpdate` script function on that projected texture:
+This shouldn't affect you in most cases, but there is one scenario that it will: If you change one of these keyvalues at runtime while the projected texture is off, then turn it back on again, it will not be saved. To ensure they get saved, you must call the `notifyKVUpdate` script function on that projected texture:
 
 `notifyKVUpdate(key, value, autoSetKV = true)`
 
