@@ -1,3 +1,32 @@
+# Old, don't use this
+
+I have recently been made aware of a vastly simpler solution to this problem that has been posted on the VDC (https://developer.valvesoftware.com/wiki/Env_projectedtexture#Caveats_and_Fixes). My solution here was so over-engineered that I don't know how I missed it, but the new solution is much, much smaller and has practically zero downsides (Other than the `-tools` mode thing, that still applies, but everything else is irrelevant, it works near flawlessly).
+
+Here is the relevant vscript code. All you need to do is put this into any `env_projectedtexture` that you want to bypass the auto-shutoff:
+```Squirrel
+function InputTurnOff() {
+ 	// If the input came from another projected texture, ignore it
+ 	if (activator && activator.IsValid() && activator.GetClassname() == "env_projectedtexture")
+ 	 	return false;
+ 	return true;
+}
+```
+
+You can even have a separate script to automatically put it into every `env_projectedtexture` for you, just put this into a `logic_script` (changing "path/to/main/script" to the path of the other script):
+```Squirrel
+local ent = null;
+while (ent = Entities.FindByClassname(ent, "env_projectedtexture")) {
+ 	ent.ValidateScriptScope();
+ 	DoIncludeScript("path/to/main/script", ent.GetScriptScope());
+}
+```
+
+The rest of this is here for archival purposes, but I don't recommend using it.
+
+
+---
+
+
 # env_multi_projectedtexture
 
 A VScript implementation of multiple active env_projectedtexture entities for Portal 2 (No dll editing or plugins required)
